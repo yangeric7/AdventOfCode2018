@@ -14,7 +14,7 @@ def part2(frequency_input):
         seen_frequency.add(total_frequency)
 
 def main():
-    test = ['+7', '+7', '-2', '-7', '-4']
+    #test = ['+7', '+7', '-2', '-7', '-4']
     with open('input.txt', 'r') as input_file:
         input = input_file.readlines()
 
