@@ -4,9 +4,9 @@ import numpy as np
 
 action_pattern = '''[{time}] {action}\n'''
 guard_pattern = '''Guard #{id:d} begins shift'''
+guard_info = {}
 
 def part1(ordered_actions):
-    guard_info = {}
     current_guard = None
     start_time = None
 
@@ -27,8 +27,7 @@ def part1(ordered_actions):
                 guard_info[current_guard] = {}
                 guard_info[current_guard]['total_slept'] = 0
                 guard_info[current_guard]['minute_asleep_count'] = np.zeros(60)
-    
-    print(guard_info)
+
     longest_total_slept = -1
     longest_slept_guard = None
     longest_slept_minute = None
@@ -41,6 +40,20 @@ def part1(ordered_actions):
 
     return longest_slept_guard * longest_slept_minute
 
+def part2():
+    most_frequent_minute = None
+    most_frequent_guard = None
+    most_frequent = -1
+    for guard, info in guard_info.items():
+        guard_most_frequent = np.max(info['minute_asleep_count'])
+        guard_most_frequent_minute = np.argmax(info['minute_asleep_count'])
+        if guard_most_frequent > most_frequent:
+            most_frequent = guard_most_frequent
+            most_frequent_guard = guard
+            most_frequent_minute = guard_most_frequent_minute
+    print(most_frequent_guard, most_frequent_minute, most_frequent)
+    return most_frequent_guard * most_frequent_minute
+
 def main():
     action_list = []
     for action in open('input.txt'):
@@ -52,6 +65,7 @@ def main():
     
 
     print('Part 1 Answer: ' + str(part1(ordered_actions)))
+    print('Part 2 Answer: ' + str(part2()))
 
 if __name__ == '__main__':
     main()
